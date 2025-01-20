@@ -157,14 +157,14 @@ namespace GAS.Runtime
         ///     determined by developers within the AbilitySpec,
         ///     rather than being systematically standardized.
         /// </summary>
-        public void DoCost()
+        public virtual void DoCost(float customCooldownTime = 0)
         {
             if (Ability.Cost != null) Owner.ApplyGameplayEffectToSelf(Ability.Cost);
 
             if (Ability.Cooldown != null)
             {
                 var cdSpec = Owner.ApplyGameplayEffectToSelf(Ability.Cooldown);
-                cdSpec.SetDuration(Ability.CooldownTime); // Actually, it should be set by the ability's cooldown time.
+                cdSpec.SetDuration(customCooldownTime == 0? Ability.CooldownTime : customCooldownTime);
             }
         }
 
